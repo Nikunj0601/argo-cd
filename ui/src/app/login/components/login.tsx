@@ -66,7 +66,7 @@ export class Login extends React.Component<RouteComponentProps<{}>, State> {
                                 {...(authSettings?.oidcConfig?.enablePKCEAuthentication
                                     ? {
                                           onClick: async () => {
-                                              pkceLogin(authSettings.oidcConfig, getPKCERedirectURI().toString()).catch(err => {
+                                              pkceLogin(authSettings.oidcConfig, getPKCERedirectURI(authSettings.url).toString()).catch(err => {
                                                   this.appContext.apis.notifications.show({
                                                       type: NotificationType.Error,
                                                       content: err?.message || JSON.stringify(err)

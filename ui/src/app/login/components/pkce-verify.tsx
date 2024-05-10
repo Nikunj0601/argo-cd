@@ -13,7 +13,7 @@ export const PKCEVerification = (props: RouteComponentProps<any>) => {
         setLoading(true);
         services.authService
             .settings()
-            .then(authSettings => pkceCallback(props.location.search, authSettings.oidcConfig, getPKCERedirectURI().toString()))
+            .then(authSettings => pkceCallback(props.location.search, authSettings.oidcConfig, getPKCERedirectURI(authSettings.url).toString()))
             .catch(err => setError(err))
             .finally(() => {
                 setLoading(false);

@@ -22,8 +22,8 @@ export const PKCECodeVerifier = {
     unset: () => sessionStorage.removeItem(window.btoa('code_verifier'))
 };
 
-export const getPKCERedirectURI = () => {
-    const currentOrigin = new URL(window.location.origin);
+export const getPKCERedirectURI = (url: string) => {
+    const currentOrigin = new URL(url ? url : window.location.origin);
 
     currentOrigin.pathname = '/pkce/verify';
 
