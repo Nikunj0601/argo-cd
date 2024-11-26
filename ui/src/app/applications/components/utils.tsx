@@ -652,16 +652,26 @@ export function renderResourceMenu(
     return (
         <DataLoader load={() => menuItems}>
             {items => (
-                <ul>
+                <ul role='menu'>
                     {items.map((item, i) => (
                         <li
                             className={classNames('application-details__action-menu', {disabled: item.disabled})}
                             key={i}
+                            role='menuitem'
+                            tabIndex={item.disabled ? -1 : 0}
+                            aria-disabled={item.disabled}
                             onClick={e => {
                                 e.stopPropagation();
                                 if (!item.disabled) {
                                     item.action();
                                     document.body.click();
+                                }
+                            }}
+                            onKeyDown={e => {
+                                if ((e.key === 'Enter' || e.key === ' ') && !item.disabled) {
+                                    e.preventDefault();
+                                    item.action();
+                                    document.body.click(); // Close the dropdown
                                 }
                             }}>
                             {item.tooltip ? (
